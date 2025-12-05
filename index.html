@@ -108,7 +108,7 @@
 
   h1 {
     font-size: 2.5rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #f55a2c, #ff8a5c);
     -webkit-background-clip: text;
@@ -119,6 +119,29 @@
     font-size: 1.2rem;
     line-height: 1.6;
     color: #ddd;
+    margin-bottom: 2rem;
+  }
+
+  .play-button {
+    padding: 0.8rem 2rem;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f55a2c, #ff8a5c);
+    color: white;
+    transition: transform 0.2s, opacity 0.2s;
+  }
+
+  .play-button:hover {
+    opacity: 0.85;
+    transform: scale(1.05);
+  }
+
+  .footnote {
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: #888;
   }
 </style>
 </head>
@@ -140,7 +163,15 @@
 
   <div class="main">
     <h1>BuildR</h1>
-    <p>You are currently on the GAME page. </p>
+    <p>Pushing the boundaries of what you think you cant do.</p>
+
+    <button class="play-button" onclick="window.location.href='https://www.roblox.com/games/78696643389124/'">
+      Play
+    </button>
+
+    <div class="footnote">
+      You must be a validated tester to play.
+    </div>
   </div>
 
   <script>
