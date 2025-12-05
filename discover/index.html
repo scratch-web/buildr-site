@@ -5,168 +5,102 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>BuildR</title>
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-
-  body {
-    display: flex;
-    min-height: 100vh;
-    background-color: #121212;
-    color: #fff;
-  }
-
-  .sidebar {
-    width: 250px;
-    background-color: #1e1e1e;
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    transition: width 0.3s ease;
-    overflow: hidden;
-    justify-content: space-between;
-  }
-
-  .sidebar.collapsed {
-    width: 35px;
-    padding: 1rem 0.25rem;
-  }
-
-  .toggle-menu {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    margin-bottom: 1rem;
-  }
-
-  .toggle-menu .toggle {
-    color: #f55a2c;
-    font-size: 1.5rem;
-    user-select: none;
-    margin-right: 10px;
-  }
-
-  .menu h2 {
-    background: linear-gradient(135deg, #f55a2c, #ff8a5c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin: 0;
-    white-space: nowrap;
-    overflow: hidden;
-    opacity: 1;
-    transition: opacity 0.3s;
-  }
-
-  .sidebar.collapsed .menu h2 {
-    opacity: 0;
-    width: 0;
-    overflow: hidden;
-  }
-
-  .menu-item {
-    padding: 0.5rem 0;
-    color: #ddd;
-    cursor: pointer;
-    white-space: nowrap;
-    overflow: hidden;
-    transition: all 0.3s;
-    border-radius: 6px;
-  }
-
-  .menu-item:hover {
-    background-color: rgba(255, 90, 44, 0.2);
-    color: #f55a2c;
-  }
-
-  .menu-item.active {
-    color: #f55a2c;
-    font-weight: bold;
-  }
-
-  .sidebar.collapsed .menu-item span {
-    display: none;
-  }
-
-  .menu-item span {
-    margin-left: 10px;
-  }
-
-  .main {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    padding: 2rem;
-    background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
-    background-size: 30px 30px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    letter-spacing: 1px;
-    background: linear-gradient(135deg, #f55a2c, #ff8a5c);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  p {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #ddd;
-  }
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Berlin Sans FB',Tahoma,Geneva,Verdana,sans-serif;}
+body{display:flex;min-height:100vh;background-color:#121212;color:#fff;overflow:hidden;}
+.sidebar{width:250px;background-color:#1e1e1e;display:flex;flex-direction:column;padding:1rem;transition:width 0.3s ease;overflow:hidden;justify-content:space-between;z-index:2;}
+.sidebar.collapsed{width:35px;padding:1rem 0.25rem;}
+.toggle-menu{display:flex;align-items:center;cursor:pointer;margin-bottom:1rem;}
+.toggle-menu .toggle{color:#f55a2c;font-size:1.5rem;user-select:none;margin-right:10px;}
+.menu h2{background:linear-gradient(135deg,#f55a2c,#ff8a5c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin:0;white-space:nowrap;}
+.sidebar.collapsed .menu h2{opacity:0;width:0;overflow:hidden;}
+.menu-item{padding:0.5rem 0;color:#ddd;cursor:pointer;white-space:nowrap;transition:0.3s;border-radius:6px;}
+.menu-item:hover{background-color:rgba(255,90,44,0.2);color:#f55a2c;}
+.menu-item.active{color:#f55a2c;font-weight:bold;}
+.sidebar.collapsed .menu-item span{display:none;}
+.main{flex:1;display:flex;flex-direction:column;text-align:center;position:relative;background-image:radial-gradient(circle,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:30px 30px;align-items:center;}
+.header{width:100%;text-align:center;padding:2rem 0;}
+h1{font-size:3rem;margin-bottom:0.5rem;background:linear-gradient(135deg,#f55a2c,#ff8a5c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.tagline{font-size:1.15rem;color:#ccc;margin-bottom:0;}
+.center-content{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;}
+.explore-btn{padding:0.65rem 2.2rem;font-size:1.2rem;border:none;border-radius:8px;cursor:pointer;background:linear-gradient(135deg,#f55a2c,#ff8a5c);color:#fff;transition:0.25s;}
+.explore-btn:hover{transform:scale(1.05);opacity:0.9;}
+.footnote{margin-top:1rem;color:#bbb;font-size:0.9rem;}
+.dot-container{position:absolute;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;}
+.dot{position:absolute;border-radius:50%;opacity:0.35;will-change:transform,opacity;}
 </style>
 </head>
 <body>
-  <div class="sidebar" id="sidebar">
-    <div>
-      <div class="toggle-menu" id="toggleMenu">
-        <div class="toggle">☰</div>
-        <h2>Menu</h2>
-      </div>
-      <div class="menu">
-        <div class="menu-item" data-link="/game"><span>Game</span></div>
-        <div class="menu-item" data-link="/discover"><span>Discover</span></div>
-        <div class="menu-item" data-link="/api"><span>API</span></div>
-      </div>
+
+<div class="dot-container" id="dotContainer"></div>
+
+<div class="sidebar" id="sidebar">
+  <div>
+    <div class="toggle-menu" id="toggleMenu">
+      <div class="toggle">☰</div>
+      <h2>Menu</h2>
     </div>
-    <div class="menu-item" data-link="https://discord.gg/XXsMg6kMdk"><span>Discord</span></div>
+    <div class="menu">
+      <div class="menu-item" data-link="/game"><span>Game</span></div>
+      <div class="menu-item" data-link="/discover"><span>Discover</span></div>
+      <div class="menu-item" data-link="/api"><span>API</span></div>
+    </div>
   </div>
+  <div class="menu-item" data-link="https://discord.gg/XXsMg6kMdk"><span>Discord</span></div>
+</div>
 
-  <div class="main">
+<div class="main">
+  <div class="header">
     <h1>BuildR</h1>
-    <p>You are currently on the DISCOVER page. </p>
+    <p class="tagline">This is the discover page, This is where youre supposed to be able to view players that are online, basically every player, and worlds.</p>
   </div>
 
-  <script>
-    const sidebar = document.getElementById('sidebar');
-    const toggleMenu = document.getElementById('toggleMenu');
-    const menuItems = document.querySelectorAll('.menu-item');
+  <div class="center-content">
+    <button class="explore-btn" onclick="window.location.href='https://www.roblox.com/games/78696643389124/'">Explore</button>
+    <p class="footnote">* You must be a validated tester to access the experience.</p>
+  </div>
+</div>
 
-    toggleMenu.addEventListener('click', () => {
-      sidebar.classList.toggle('collapsed');
-    });
+<script>
+const sidebar=document.getElementById('sidebar');
+const toggleMenu=document.getElementById('toggleMenu');
+const menuItems=document.querySelectorAll('.menu-item');
+const dotContainer=document.getElementById('dotContainer');
 
-    const currentPath = window.location.pathname;
-    menuItems.forEach(item => {
-      if (currentPath === item.dataset.link) {
-        item.classList.add('active');
-      }
+toggleMenu.addEventListener('click',()=>{sidebar.classList.toggle('collapsed');});
+menuItems.forEach(item=>{
+  if(window.location.pathname===item.dataset.link)item.classList.add('active');
+  item.addEventListener('click',()=>{
+    const link=item.dataset.link;
+    if(link.startsWith('http'))window.open(link,'_blank');
+    else window.location.href=link;
+  });
+});
 
-      item.addEventListener('click', () => {
-        const link = item.dataset.link;
-        if (link.startsWith('http')) {
-          window.open(link, '_blank');
-        } else {
-          window.location.href = link;
-        }
-      });
-    });
-  </script>
+function spawnDot(){
+  const dot=document.createElement('div');
+  dot.className='dot';
+  const size=Math.random()*10+4;
+  dot.style.width=size+'px';
+  dot.style.height=size+'px';
+  const hue=20+Math.random()*30;
+  dot.style.backgroundColor=`hsl(${hue},90%,55%)`;
+  dot.style.left=Math.random()*window.innerWidth+'px';
+  dot.style.top=Math.random()*window.innerHeight+'px';
+  const deltaX=(Math.random()-0.5)*100;
+  const deltaY=(Math.random()-0.5)*100;
+  const rotateDir=Math.random()<0.5?-1:1;
+  const duration=8000+Math.random()*4000;
+  dot.animate([
+    {transform:'translate(0,0) rotate(0deg)',opacity:0.4},
+    {transform:`translate(${deltaX}px,${deltaY}px) rotate(${360*rotateDir}deg)`,opacity:0.1}
+  ],{duration:duration,iterations:1,easing:'linear'});
+  dotContainer.appendChild(dot);
+  setTimeout(()=>dot.remove(),duration);
+}
+
+for(let i=0;i<15;i++)spawnDot();
+setInterval(spawnDot,800);
+</script>
+
 </body>
 </html>
