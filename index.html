@@ -98,16 +98,17 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     text-align: center;
     padding: 2rem;
+    justify-content: flex-start;
     background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
     background-size: 30px 30px;
   }
 
   h1 {
     font-size: 2.5rem;
+    margin-top: 2rem;
     margin-bottom: 0.5rem;
     letter-spacing: 1px;
     background: linear-gradient(135deg, #f55a2c, #ff8a5c);
@@ -115,31 +116,38 @@
     -webkit-text-fill-color: transparent;
   }
 
-  p {
+  p.tagline {
     font-size: 1.2rem;
-    line-height: 1.6;
     color: #ddd;
-    margin-bottom: 2rem;
+    margin-bottom: 4rem;
   }
 
-  .play-button {
-    padding: 0.8rem 2rem;
-    font-size: 1.3rem;
+  .explore-wrapper {
+    margin-top: 5rem; /* moves button + footnote upward */
+    transform: translateY(-20%); /* lifts it slightly above center */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .explore-button {
+    padding: 0.5rem 2rem;
+    font-size: 1.2rem;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     background: linear-gradient(135deg, #f55a2c, #ff8a5c);
     color: white;
     transition: transform 0.2s, opacity 0.2s;
+    margin-bottom: 0.75rem;
   }
 
-  .play-button:hover {
+  .explore-button:hover {
     opacity: 0.85;
     transform: scale(1.05);
   }
 
   .footnote {
-    margin-top: 1rem;
     font-size: 0.9rem;
     color: #888;
   }
@@ -163,15 +171,18 @@
 
   <div class="main">
     <h1>BuildR</h1>
-    <p>Pushing the boundaries of what you think you cant do.</p>
+    <p class="tagline">Pushing the boundaries of what you think you cant do.</p>
 
-    <button class="play-button" onclick="window.location.href='https://www.roblox.com/games/78696643389124/'">
-      Play
-    </button>
+    <div class="explore-wrapper">
+      <button class="explore-button" onclick="window.location.href='https://www.roblox.com/games/78696643389124/'">
+        Explore
+      </button>
 
-    <div class="footnote">
-      You must be a validated tester to play.
+      <div class="footnote">
+        You must be a validated tester to play.
+      </div>
     </div>
+
   </div>
 
   <script>
